@@ -1,0 +1,90 @@
+lombok
+- 테이블을 구조화한 도메인 클래스(Entity(필드요소) ,DTO(데이터를 저장하는객체) ,VO)에서 getter/setter 메소드와
+toString,equals,hashCode 등의 메서드를 어노테이션으로 사용할 수 있도록 해주는 라이브 러리
+
+@ 지시어 사용하는 라이브러리
+- https://projectlombok.org/
+
+- @Date : 자동으로 getter / setter를 지원
+- @AllArgsConstructor : 모든 매개변수를 지원하는 생성자를 생성
+- @NoArgsConstructor : 매개변수가 없는 생성자를 생성
+- @Builder : 복합 객체의 생성 과정과 표현 방법을 분리하여 동일한 생성 절차에서 서로
+다른 표현 력롸를 만들수 있음
+
+
+JPA(Java Persistence API)
+- 자바의 ORM 기술 표준
+- 객체를 DB에 저장하고 관리 할 때 개발자가 직접 SQL을 작성하지 않아도 됨
+- JPA가 개발자 대신 적절한 SQL을 생성해서 DB에게 전달하고 , 객체를 자동으로 Mapping 해줌
+(자바객체로 sql문을 사용/ 쿼리문을 사용 x /디테일한 설계 , 관리 요구
+)
+
+Hibernate☆
+- ORM 프레임 워크 가장 많이 사용되는 프레임워크
+
+
+
+
+😍 ORM (Object-relational Mapping)
+- 객체와 관계형 DB를 매핑
+- 객체를 마치 자바 컬렉션에 저장할 수 있고 적덜한 SQL을 생성해서 DB객체에 저장
+
+자바의 변수
+Camel Case : 단어를 표기할 때 첫 문자는 소문자로 시작하고 띄어 쓰기 대신 대문자로 단어를 구분
+    numKor, numEng ..
+
+
+DB테이블 , API정의 ,통신 구격
+Snake Case : 단어를 표기할 때 모두 소문자로 표기하며 띄어쓰기 대신 언더바 (_) 로 표기
+    tb_member, vw_mem_select
+
+@Entity
+- JPA에서 테이블을 자동으로 관리해주는 기능을 가진 객체를 생성하는 어노테이션
+    JPA Entity <-----> Database DBTable
+
+@Id (기본 키 매핑)
+@GeneratiedValue ( 값설정)
+- insert 쿼리 전에 hibernate_sequence 테이블의 데이터에 대하여 select,
+update 쿼리가 실행되며 id 생성을
+위해 hibernate_sequence 테이블의 시퀀스 값을 가져와 업데이트하고
+ 그 값으로 id를 생성하여 insert 쿼리에 사용
+
+
+
+https://www.oracle.com/kr/cloud/free/
+
+jUnit
+- Java에서 독립된 단위테스트(Unit Test)를 지원해주는 프레임워크
+
+Unit Test
+- 소스코드의 특정 모듈이 의도된 대로 정확히 작동하는지 검증하는 절차
+- 모든 함수와 메소드에 대한 테스트 케이스(Test Case) 를 작성하는 절차
+
+AutoWired
+- 필요한 의존 객체의 "타입" 에 해당하는 빈을 찾아 주입함
+- 생성자 setter 필드
+-
+
+과제.
+User 클래스에 데이터를oracle에 저장하는 단위 테스트 메소드를 작성
+(id는 시퀀스로 일렬번호 등록)
+
+
+- UserRepository
+
+
+
+Optional 클래스
+- java.util.Optional<T>
+- 래퍼 클래스
+- Optional 인스턴스는 모든 타입의 참조변수를 저장
+- 예상치 못한 NullPointerException 예외를 제공하는 메소드로 간단히 회피가능
+- 복잡한 조건없이 null이 발생시키는 예외
+
+과제.
+test에 각 클래스에 맞는 RepositoryTest에 CRUD를 할 수 있는 메소드를 작성
+(create 에는 원하는 메소드를 추가하여 각 데이터를 가져오는 방법을 여러개 작성)
+
+8월 20일 오전 9시까지 깃에 올려라
+
+
