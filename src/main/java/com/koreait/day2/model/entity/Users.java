@@ -1,12 +1,17 @@
 package com.koreait.day2.model.entity;
 
+import com.koreait.day2.model.enumclass.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +24,7 @@ import java.time.LocalDateTime;
         allocationSize = 1
 )
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Users {
 
     @Id
@@ -29,7 +35,16 @@ public class Users {
     private String userpw;
     private String hp;
     private String email;
+    @CreatedDate
     private LocalDateTime regDate;
+    @LastModifiedDate
     private LocalDateTime updateDate;
-    
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status; //REGISTERED, UNREGISTERED
+
+
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    private List<OrderGroup> orderGroupList;
 }

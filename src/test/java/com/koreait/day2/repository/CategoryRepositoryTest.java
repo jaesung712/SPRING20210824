@@ -2,6 +2,7 @@ package com.koreait.day2.repository;
 
 import com.koreait.day2.Day2ApplicationTests;
 import com.koreait.day2.model.entity.Category;
+import com.koreait.day2.model.entity.Users;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,8 +18,8 @@ public class CategoryRepositoryTest extends Day2ApplicationTests {
     @Test
     public void create(){
         Category category = Category.builder()
-                .type("컴퓨터")
-                .title("애플 컴퓨터")
+                .type("가전")
+                .title("엘지 냉장고")
                 .regDate(LocalDateTime.now())
                 .build();
 
@@ -27,34 +28,12 @@ public class CategoryRepositoryTest extends Day2ApplicationTests {
 
     @Test
     public void update(){
-        Optional<Category> category = categoryRepository.findById(1L);
-        category.ifPresent(selectcategory ->{
-            selectcategory.setType("컴퓨터");
-            selectcategory.setTitle("애플 컴퓨터");
-            selectcategory.setUpdateDate(LocalDateTime.now());
-            categoryRepository.save(selectcategory);
-        });
-    }
-    @Test
-    public void read(){
-        Optional<Category> category= categoryRepository.findFirstByTitleOrderByIdDesc("애플 컴퓨터");
-        category.ifPresent(selectcategory ->{
-            System.out.println("컴퓨터 : " + selectcategory.getTitle());
-        });
-    }
+        Optional<Category> category= categoryRepository.findById(6L);
+        category.ifPresent(selectCategory -> {
+            selectCategory.setType("선박");
+            selectCategory.setTitle("모터보트");
 
-    @Test
-    public void delete() {
-        Optional<Category> category = categoryRepository.findById(5L);
-        category.ifPresent(selectUser -> {
-            categoryRepository.delete(selectUser);
+            categoryRepository.save(selectCategory);
         });
-        Optional<Category> delcategory = categoryRepository.findById(5L);
-        if (delcategory.isPresent()) {
-            System.out.println("삭제실패!");
-        }else {
-            System.out.println("삭제성공!");
-        }
     }
-
 }

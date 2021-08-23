@@ -2,9 +2,11 @@ package com.koreait.day2.repository;
 
 import com.koreait.day2.Day2ApplicationTests;
 import com.koreait.day2.model.entity.Users;
+import com.koreait.day2.model.enumclass.UserStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -25,16 +27,18 @@ public class UserRepositoryTest extends Day2ApplicationTests {
 //        Users newUser = userRepository.save(user);
 
         Users user = Users.builder()
-                .userid("melon")
-                .userpw("1212")
-                .hp("010-3333-3333")
+                .userid("orange")
+                .userpw("5555")
+                .hp("010-5555-5555")
                 .email("orange@orange.com")
+                .status(UserStatus.REGISTERD)
                 .regDate(LocalDateTime.now())
                 .build();
         Users newUser = userRepository.save(user);
     }
 
     @Test
+    @Transactional
     public void read(){
         // select * from users where userid=?
 //        Optional<Users> user = userRepository.findByUserid("banana");
@@ -46,12 +50,41 @@ public class UserRepositoryTest extends Day2ApplicationTests {
 //            System.out.println("email : " + selectUser.getEmail());
 //        });
 
-        Users user = userRepository.findFirstByHpOrderByIdDesc("010-2222-1111");
+//        Users user = userRepository.findFirstByHpOrderByIdDesc("010-2222-1111");
+//        if(user != null){
+//            System.out.println("데이터가 존재합니다!");
+//        }else{
+//            System.out.println("데이터가 존재하지 않습니다!");
+//        }
+
+        Users user = userRepository.findFirstByHpOrderByIdDesc("010-3333-3333");
         if(user != null){
-            System.out.println("데이터가 존재합니다!");
+            System.out.println(user.getUserid() + "님의 주문 리스트입니다");
+            System.out.println("-------------------------------------");
+            // System.out.println(user.getOrderGroupList().stream().count());
+            user.getOrderGroupList().stream().forEach(orderGroup -> {
+                System.out.println("****** 주문내역 ******");
+                System.out.println("수령인 : " + orderGroup.getRevName());
+                System.out.println("수령지 : " + orderGroup.getRevAddress());
+                System.out.println("수량 : " + orderGroup.getTotalQuantity());
+                System.out.println("금액 : " + orderGroup.getTotalPrice());
+                System.out.println("****** 주문상세 ******");
+                orderGroup.getOrderDetailList().forEach(orderDetail -> {
+                    System.out.println("주문의 상태 : " + orderDetail.getStatus());
+                    System.out.println("도착예정일자 : " + orderDetail.getArrivalDate());
+                    System.out.println("상품명 : " + orderDetail.getItem().getName());
+                    // 파트너사명, 고객센터전화번호, 상품카테고리
+                    System.out.println("파트너명 : " + orderDetail.getItem().getPartner().getName());
+                    System.out.println("고객센터 전화번호 : " + orderDetail.getItem().getPartner().getCallCenter());
+                    System.out.println("상품카테고리 : " + orderDetail.getItem().getPartner().getCategory().getTitle());
+                    System.out.println();
+                });
+            });
+
         }else{
-            System.out.println("데이터가 존재하지 않습니다!");
+            System.out.println("데이터가 존재하지 않습니다");
         }
+
     }
 
     @Test

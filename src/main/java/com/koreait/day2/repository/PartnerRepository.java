@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface PartnerRepository extends JpaRepository<Partner, Long> {
-    Optional<Partner> findFirstByIdOrderByIdDesc(Long id);
-    Optional<Partner> findFirstByNameOrderByIdDesc(String name);
+
     Optional<Partner> findById(Long id);
 }

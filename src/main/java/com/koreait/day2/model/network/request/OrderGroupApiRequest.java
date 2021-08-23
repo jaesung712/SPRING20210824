@@ -1,5 +1,6 @@
-package com.koreait.day2.model.entity;
+package com.koreait.day2.model.network.request;
 
+import com.koreait.day2.model.enumclass.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,39 +11,34 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 @SequenceGenerator(
-        name="seq_detail",
-        sequenceName = "seq_detail",
+        name = "seq_group",
+        sequenceName = "seq_group",
         initialValue = 1,
         allocationSize = 1
 )
-@EntityListeners(AuditingEntityListener.class)
-public class OrderDetail {
+public class OrderGroupApiRequest {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_detail")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="seq_group" )
     private Long id;
-    private LocalDateTime arrivalDate;
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;
     private String status;
-    private Integer quantity;
+    private String revAddress;
+    private String revName;
+    private String paymentType;
     private BigDecimal totalPrice;
+    private Integer totalQuantity;
+    private LocalDateTime orderAt;
+    private LocalDateTime arrivalDate;
     @CreatedDate
     private LocalDateTime regDate;
-//    private Long itemId;
-//    private Long orderGroupId;
-
-    @ManyToOne
-    private Item item;
-
-    @ManyToOne
-    private OrderGroup orderGroup;
-
-
-
 }

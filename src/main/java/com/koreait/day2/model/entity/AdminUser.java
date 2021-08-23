@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,6 +22,7 @@ import java.time.LocalDateTime;
         allocationSize = 1
 )
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class AdminUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
@@ -28,5 +32,10 @@ public class AdminUser {
     private String name;    // 이름
     private String status;  // 상태
     private LocalDateTime lastLoginAt;  // 마지막 접속시간
+    @CreatedDate
     private LocalDateTime regDate;      // 가입 날짜
+
+    @CreatedBy
+    private String createBy;
+
 }

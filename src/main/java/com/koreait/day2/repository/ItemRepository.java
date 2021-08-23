@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    Optional<Item> findByContent(String content);
-    Optional<Item> findFirstByNameOrderByIdDesc(String name);
-    Optional<Item> findFirstByTitleOrderByPriceDesc(String title);
+    Optional<Item> findByName(String name);
+
 }
